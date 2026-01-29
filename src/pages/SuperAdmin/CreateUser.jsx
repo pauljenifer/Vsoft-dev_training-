@@ -62,7 +62,7 @@ const CreateUser = () => {
 
   try {
     // UPDATED: Real API call instead of setTimeout
-    const API_URL = process.env.REACT_APP_API_URL || 'https://test.vconstech.in';
+    const API_URL = import.meta.env.VITE_API_URL || 'https://test.vconstech.in';
     
     const response = await fetch(`${API_URL}/api/superadmin/create-user`, {
       method: 'POST',
@@ -366,42 +366,42 @@ const CreateUser = () => {
 
 
               {/* Password */}
-              <div className="space-y-3">
-                <label className="block text-sm font-bold text-gray-800 tracking-wide">
-                  Password <span className="text-red-500">*</span>
-                </label>
-                <div className={`relative rounded-2xl transition-all duration-300 ${
-                    isFocused.password 
-                      ? 'ring-2 ring-[#ffbe2a] shadow-lg shadow-[#ffbe2a]/20' 
-                      : 'ring-1 ring-gray-200 hover:ring-gray-300'
-                  }`}>
-                  <div className="flex items-center px-5 py-4 bg-gray-50 rounded-2xl">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                        isFocused.password ? 'bg-[#ffbe2a] shadow-md' : 'bg-white'
-                      }`}>
-                      <Lock className={`w-5 h-5 ${isFocused.password ? 'text-black' : 'text-gray-400'}`} />
-                    </div>
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      value={userData.password}
-                      onChange={(e) => setUserData({ ...userData, password: e.target.value })}
-                      onFocus={() => handleFocus('password', true)}
-                      onBlur={() => handleFocus('password', false)}
-                      className="flex-1 ml-4 bg-transparent text-gray-900 placeholder-gray-400 outline-none font-medium"
-                      placeholder="Min 6 characters"
-                      disabled={loading}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="ml-2 text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-lg"
-                    >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                    </button>
-                  </div>
-                </div>
-              </div>
-
+              
+<div className="space-y-3">
+  <label className="block text-sm font-bold text-gray-800 tracking-wide">
+    Password <span className="text-red-500">*</span>
+  </label>
+  <div className={`relative rounded-2xl transition-all duration-300 ${
+      isFocused.password 
+        ? 'ring-2 ring-[#ffbe2a] shadow-lg shadow-[#ffbe2a]/20' 
+        : 'ring-1 ring-gray-200 hover:ring-gray-300'
+    }`}>
+    <div className="flex items-center px-5 py-4 bg-gray-50 rounded-2xl">
+      <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
+          isFocused.password ? 'bg-[#ffbe2a] shadow-md' : 'bg-white'
+        }`}>
+        <Lock className={`w-5 h-5 ${isFocused.password ? 'text-black' : 'text-gray-400'}`} />
+      </div>
+      <input
+        type={showPassword ? 'text' : 'password'}
+        value={userData.password}
+        onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+        onFocus={() => handleFocus('password', true)}
+        onBlur={() => handleFocus('password', false)}
+        className="flex-1 ml-4 bg-transparent text-gray-900 placeholder-gray-400 outline-none font-medium"
+        placeholder="Min 6 characters"
+        disabled={loading}
+      />
+      <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="ml-2 text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-100 rounded-lg"
+      >
+        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+      </button>
+    </div>
+  </div>
+</div>
               {/* Confirm Password */}
               <div className="space-y-3">
                 <label className="block text-sm font-bold text-gray-800 tracking-wide">
@@ -469,43 +469,77 @@ const CreateUser = () => {
     </div>
   </div>
 </div>
+</div>
+            
+           <div className='flex flex-col'>
+  {/* Action Buttons */}
+  <div className="flex gap-5 mt-10">
+    <button
+      onClick={handleLogout}
+      disabled={loading}
+      className="flex-1 bg-white border-2 border-gray-200 text-gray-700 font-bold py-4 rounded-2xl transition-all duration-200 hover:bg-gray-50 hover:border-gray-300 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Cancel
+    </button>
+    <button
+      onClick={handleSubmit}
+      disabled={loading}
+      className="flex-1 bg-[#ffbe2a] text-black font-bold py-4 rounded-2xl transition-all duration-200 hover:shadow-2xl shadow-[#ffbe2a]/30 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02]"
+    >
+      {loading ? (
+        <span className="flex items-center justify-center">
+          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Creating User...
+        </span>
+      ) : (
+        'Create User'
+      )}
+    </button>
+  </div>
+
+  {/* Table Section */}
+  <div className="bg-white rounded-lg shadow-md  mt-8">
+    <div className="overflow-x-auto">
+      <table className="border w-full ">
+        <thead className="bg-gray-100 ">
+          <tr>
+            <th className="border-2 border-[#ffbe2a] p-3 text-left font-semibold text-gray-700">Name</th>
+            <th className="border-2 border-[#ffbe2a] p-3 text-left font-semibold text-gray-700">Email</th>
+            <th className="border-2 border-[#ffbe2a] p-3 text-left font-semibold text-gray-700">Phone</th>
+            <th className="border-2 border-[#ffbe2a] p-3 text-left font-semibold text-gray-700">Role</th>
+            <th className="border-2 border-[#ffbe2a] p-3 text-left font-semibold text-gray-700">Company</th>
+            <th className="border-2 border-[#ffbe2a] p-3 text-left font-semibold text-gray-700">City</th>
+            <th className="border-2 border-[#ffbe2a] p-3 text-left font-semibold text-gray-700">Address</th>
+          </tr>
+        </thead>
+           <tbody>
+        <tr>
+          <td className="border-2 border-[#ffbe2a] p-3">Sample Name</td>
+          <td className="border-2 border-[#ffbe2a] p-3">sample@email.com</td>
+          <td className="border-2 border-[#ffbe2a] p-3">123-456-7890</td>
+          <td className="border-2 border-[#ffbe2a] p-3">Admin</td>
+          <td className="border-2 border-[#ffbe2a] p-3">ABC Corp</td>
+          <td className="border-2 border-[#ffbe2a] p-3">New York</td>
+          <td className="border-2 border-[#ffbe2a] p-3">123 Main St</td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 
 
             </div>
-
-            {/* Action Buttons */}
-            <div className="flex gap-5 mt-10">
-              <button
-                onClick={handleLogout}
-                disabled={loading}
-                className="flex-1 bg-white border-2 border-gray-200 text-gray-700 font-bold py-4 rounded-2xl transition-all duration-200 hover:bg-gray-50 hover:border-gray-300 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="flex-1 bg-[#ffbe2a] text-black font-bold py-4 rounded-2xl transition-all duration-200 hover:shadow-2xl shadow-[#ffbe2a]/30 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02]"
-              >
-                {loading ? (
-                  <span className="flex items-center justify-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Creating User...
-                  </span>
-                ) : (
-                  'Create User'
-                )}
-              </button>
-            </div>
-          </div>
+</div>
 
 
         </div>
       </div>
-    </div>
+  
   );
 };
 
