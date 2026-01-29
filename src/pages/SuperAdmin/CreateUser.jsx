@@ -440,35 +440,35 @@ const CreateUser = () => {
               </div>
 
               {/* Address */}
-              <div className="space-y-3">
-                <label className="block text-sm font-bold text-gray-800 tracking-wide">
-                  Address <span className="text-red-500">*</span>
-                </label>
-                <div className={`relative rounded-2xl transition-all duration-300 ${
-                    isFocused.address 
-                      ? 'ring-2 ring-[#ffbe2a] shadow-lg shadow-[#ffbe2a]/20' 
-                      : 'ring-1 ring-gray-200 hover:ring-gray-300'
-                  }`}>
-                  <div className="flex items-center px-5 py-4 bg-gray-50 rounded-2xl">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                        isFocused.address ? 'bg-[#ffbe2a] shadow-md' : 'bg-white'
-                      }`}>
-                      <User className={`w-5 h-5 ${isFocused.address ? 'text-black' : 'text-gray-400'}`} />
-                    </div>
-                    <input
-                      type="text"
-                      value={userData.address}
-                      onChange={(e) => setUserData({ ...userData, city: e.target.value })}
-                      onFocus={() => handleFocus('address', true)}
-                      onBlur={() => handleFocus('address', false)}
-                      className="flex-1 ml-4 bg-transparent text-gray-900 placeholder-gray-400 outline-none font-medium"
-                      placeholder="Enter Address"
-                      disabled={loading}
-                    />
-                  </div>
-                </div>
-              </div>
-
+              
+  <div className="space-y-3">
+  <label className="block text-sm font-bold text-gray-800 tracking-wide">
+    Address <span className="text-red-500">*</span>
+  </label>
+  <div className={`relative rounded-2xl transition-all duration-300 w-full max-w-4xl ${
+      isFocused.address 
+        ? 'ring-2 ring-[#ffbe2a] shadow-lg shadow-[#ffbe2a]/20' 
+        : 'ring-1 ring-gray-200 hover:ring-gray-300'
+    }`}>
+    <div className="flex items-center px-6 py-4 bg-gray-50 rounded-2xl">
+      <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 flex-shrink-0 ${
+          isFocused.address ? 'bg-[#ffbe2a] shadow-md' : 'bg-white'
+        }`}>
+        <User className={`w-5 h-5 ${isFocused.address ? 'text-black' : 'text-gray-400'}`} />
+      </div>
+      <input
+        type="text"
+        value={userData.address}
+        onChange={(e) => setUserData({ ...userData, address: e.target.value })}
+        onFocus={() => handleFocus('address', true)}
+        onBlur={() => handleFocus('address', false)}
+        className="flex-1 ml-4 bg-transparent text-gray-900 placeholder-gray-400 outline-none font-medium"
+        placeholder="Enter Address"
+        disabled={loading}
+      />
+    </div>
+  </div>
+</div>
 
 
             </div>
